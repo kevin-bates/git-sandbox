@@ -90,11 +90,13 @@ Its best to submit a PR of one commit - although not required.  To squash a set 
 into one, use the following:
 
 - [ ] `git log` # Presents a list of commits ordered by date - newest to oldest
-- [ ] Identify the commit from on which the to-be-squashed commits were applied and 
-call that "original-commit". I.e., the starting point.
-- [ ] 'git rebase -i <original-commit>'  # This is an *interactive rebase* and will 
+- [ ] Identify the commit hash from on which the to-be-squashed commits were applied and 
+call that "original-commit-hash". I.e., the starting point.
+- [ ] `git rebase -i <original-commit-hash>`  # This is an *interactive rebase* and will 
 bring up an editor with the set of to-be-squashed commits  prefixed with 'pick'.  
 Change 'pick' to 's' for all but the first one of those items (leaving one to act as the primary commit).
+(Note: When merging PRs (below) `git rebase -i master` from the pr branch only gives commits unique 
+to your branch.)
 - [ ] Edit the header of the next entry to have the appropriate (encompassing) message.
 - [ ] Push the changes - preferrably to a new branch - or delete the original branch and recreate it.
 - To push to a new branch...
