@@ -90,7 +90,7 @@ Its best to submit a PR of one commit - although not required.  To squash a set 
 into one, use the following:
 
 - [ ] `git log` # Presents a list of commits ordered by date - newest to oldest
-- [ ] Identify the commit hash from on which the to-be-squashed commits were applied and 
+- [ ] Identify the commit hash on which the to-be-squashed commits were applied and 
 call that "original-commit-hash". I.e., the starting point.
 - [ ] `git rebase -i <original-commit-hash>`  # This is an *interactive rebase* and will 
 bring up an editor with the set of to-be-squashed commits  prefixed with 'pick'.  
@@ -106,7 +106,7 @@ to your branch.)
 	- [ ] `git push origin <prev-branch>:<prev-branch>`  (to recreate - although haven't done this yet)
 - [ ] Once pushed - review the commit and ensure the changes look correct.
 
-## Merging changes form master onto dev branch
+## Merging changes from master onto dev branch
 Here are steps to merge a commit from a dev branch to the master branch.  In summary, 
 the steps first update the dev branch with the latest changes from master, resolving 
 any conflicts that may occur, then cherry-picks the last commit from the newly updated
