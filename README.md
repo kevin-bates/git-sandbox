@@ -47,30 +47,30 @@ area.
 ## Synchronizing a working area from the master
 To update your working area (and local repo) with changes applied to master, do the following:
 
-- [ ] `git fetch upstream` # Makes changes from `upstream` available
-- [ ] `git checkout master`  # Switch to the master branch
-- [ ] `git rebase upstream/master`  # Apply changes from master to your local work area
-- [ ] `git push origin master`  # Push local changes to github repo denoted by `origin`
+- `git fetch upstream` # Makes changes from `upstream` available
+- `git checkout master`  # Switch to the master branch
+- `git rebase upstream/master`  # Apply changes from master to your local work area
+- `git push origin master`  # Push local changes to github repo denoted by `origin`
 
 If you also had a dev branch that you wanted to update with master...
-- [ ] `git checkout dev-branch`  # Switch to the dev branch
-- [ ] `git rebase master`  # no need to use `upstream` since master is already up to date
+- `git checkout dev-branch`  # Switch to the dev branch
+- `git rebase master`  # no need to use `upstream` since master is already up to date
 
 ## Making changes
 To make changes that are then (eventually) applied to the master source base, do the
 following:
 
-- [ ] Synchronize your work area using the steps described above and create a working branch:
-- [ ] `git checkout -b dev-branch`
-- [ ] Make and test necessary changes
-- [ ] `git add .`  # Prepare all files for commit.  If only a subset of changed files are
+- Synchronize your work area using the steps described above and create a working branch:
+- `git checkout -b dev-branch`
+- Make and test necessary changes
+- `git add .`  # Prepare all files for commit.  If only a subset of changed files are
 to be committed then only `add` those.
-- [ ] `git commit -m <comment-heading>`  # commits the files locally.  Use a brief statement 
+- `git commit -m <comment-heading>`  # commits the files locally.  Use a brief statement 
 that summarizes the changes.
-- [ ] `git commit --amend`  # This command is used to bring up an editor (vi) that allows you
+- `git commit --amend`  # This command is used to bring up an editor (vi) that allows you
 to add more verbose comments.  In both cases, try to limit the characters in each line
 to 70.  This makes life easier to committer that need to process the changes.
-- [ ] `git push origin dev-branch`  # This pushes the changes to the repo denoted by `origin`
+- `git push origin dev-branch`  # This pushes the changes to the repo denoted by `origin`
 and creates a `dev-branch` branch.
 
 Once changes are in place, a pull request can be created.  This is accomplished via the
@@ -89,22 +89,23 @@ be necessary to require a forced deletion by replacing `-d` with `-D`.
 Its best to submit a PR of one commit - although not required.  To squash a set of commits 
 into one, use the following:
 
-- [ ] `git log` # Presents a list of commits ordered by date - newest to oldest
-- [ ] Identify the commit hash on which the to-be-squashed commits were applied and 
+- `git log` # Presents a list of commits ordered by date - newest to oldest
+- Identify the commit hash on which the to-be-squashed commits were applied and 
 call that "original-commit-hash". I.e., the starting point.
-- [ ] `git rebase -i <original-commit-hash>`  # This is an *interactive rebase* and will 
+- `git rebase -i <original-commit-hash>`  # This is an *interactive rebase* and will 
 bring up an editor with the set of to-be-squashed commits  prefixed with 'pick'.  
 Change 'pick' to 's' for all but the first one of those items (leaving one to act as the primary commit).
 (Note: When merging PRs (below) `git rebase -i master` from the pr branch only gives commits unique 
 to your branch.)
-- [ ] Edit the header of the next entry to have the appropriate (encompassing) message.
-- [ ] Push the changes - preferrably to a new branch - or delete the original branch and recreate it.
+- Edit the header of the next entry to have the appropriate (encompassing) message.
+- Push the changes (preferrably to a new branch), delete the original branch and recreate it or,
+if merging another PR and working in the "pr branch", leave alone.
 - To push to a new branch...
-	- [ ] `git push origin <prev-branch>:<new-branch>`
+	- `git push origin <prev-branch>:<new-branch>`
 - To delete and recreate the original branch...
-	- [ ] `git push origin :<prev-branch>`   (to delete)
-	- [ ] `git push origin <prev-branch>:<prev-branch>`  (to recreate - although haven't done this yet)
-- [ ] Once pushed - review the commit and ensure the changes look correct.
+	- `git push origin :<prev-branch>`   (to delete)
+	- `git push origin <prev-branch>:<prev-branch>`  (to recreate - although haven't done this yet)
+- Once pushed (or not in PR merge case) - review the commit and ensure the changes look correct.
 
 ## Merging changes from master onto dev branch
 Here are steps to merge a commit from a dev branch to the master branch.  In summary, 
@@ -115,38 +116,38 @@ and pushes those updates to applicable repos (upstream and origin).
 
 ##### Merging changes from master onto dev branch
 
-- [ ] `git fetch upstream` or `git fetch --all` # Get the latest from upstream (et al)
-- [ ] `git checkout master` # Change to local master branch
-- [ ] `git rebase upstream/master` # Apply upstream changes to local master branch
-- [ ] `git checkout dev-branch` # Change to local dev-branch
-- [ ] `git rebase master` # Apply changes from local master to current branch
-- [ ] Previous command encountered conflicts.  Use pyCharm VCS->Git->Resolve 
+- `git fetch upstream` or `git fetch --all` # Get the latest from upstream (et al)
+- `git checkout master` # Change to local master branch
+- `git rebase upstream/master` # Apply upstream changes to local master branch
+- `git checkout dev-branch` # Change to local dev-branch
+- `git rebase master` # Apply changes from local master to current branch
+- Previous command encountered conflicts.  Use pyCharm VCS->Git->Resolve 
 Conflicts to fix middle panel.  Once resolved, continue rebase.
 (Note: If something goes wrong or a merge doesn't look correct,
 issue the following... `git rebase --abort`)
-    - [ ] git rebase --continue
+    - git rebase --continue
 
 *TEST CHANGES HERE...*
 
-- [ ] `git push --force origin dev-branch` # Local dev branch updated, push to repo (fork in this case)
-- [ ] `git commit --amend` # Fixup commit comments, add Closes #NNN or whatever.
-- [ ] `git push --force origin dev-branch` # Push those updates back to repo
+- `git push --force origin dev-branch` # Local dev branch updated, push to repo (fork in this case)
+- `git commit --amend` # Fixup commit comments, add Closes #NNN or whatever.
+- `git push --force origin dev-branch` # Push those updates back to repo
 
 If multiple commits are to be merged, its best they be squashed into
 a single commit...
-- [ ] `git checkout dev-branch` Get onto the dev branch (probably there already)
-- [ ] `git rebase -i master`  # Perform interactive rebase (see above), updating all entries except 
+- `git checkout dev-branch` Get onto the dev branch (probably there already)
+- `git rebase -i master`  # Perform interactive rebase (see above), updating all entries except 
 the first which becomes the 'squash commit'.  Change 'pick' to 's' for non-first entries.
 
 ##### Merging dev branch commit back to master (i.e., merge the PR) 
-- [ ] `git log` # Grab the commit hash from the last (first) commit listed in the log 
-- [ ] `git checkout master` # Switch to local master branch
-- [ ] `git log` # Look at the log just to check that things look okay (should not see
+- `git log` # Grab the commit hash from the last (first) commit listed in the log 
+- `git checkout master` # Switch to local master branch
+- `git log` # Look at the log just to check that things look okay (should not see
 anything regarding the changes to be merged) 
-- [ ] `git cherry-pick <selected-hash>` # Cherry pick the commit (using the hash select in first git log step)
-- [ ] `git log` # Look at the log to make sure cherry-picked commit is present
-- [ ] `git push upstream master` # Push merged changes to upstream master branch
-- [ ] `git push origin master` # Push merged changes to forked repo master branch
+- `git cherry-pick <selected-hash>` # Cherry pick the commit (using the hash select in first git log step)
+- `git log` # Look at the log to make sure cherry-picked commit is present
+- `git push upstream master` # Push merged changes to upstream master branch
+- `git push origin master` # Push merged changes to forked repo master branch
 
 
 ## Merging another's PR
@@ -158,45 +159,44 @@ amenddate='git commit  --amend --date=now'
 pro = "!f() { git fetch ${2:-origin} pull/$1/head:pr-$1 && git checkout pr-$1; }; f"
 pru = "!f() { git fetch ${2:-upstream} pull/$1/head:pr-$1 && git checkout pr-$1; }; f"
 ```
-1. Create clean clone in separate directory
-
- 	- [ ] `cd merging`
- 	- [ ] `git clone <repo>`
- 	- [ ] `cd repo-dir`
+- Create clean clone in separate directory
+ 	- `cd merging`
+ 	- `git clone <repo>`
+ 	- `cd repo-dir`
  	
-1. Since clean repo uses origin as the truth, use 'pro' alias (PR origin) using the PR number (303)
- 	- [ ] `git pro 303`
+- Since clean repo uses origin as the truth, use 'pro' alias (PR origin) using the PR number (303)
+ 	- `git pro 303`
 
-1. Now on branch pr-303, check commit log
- 	- [ ] `git log`
+- Now on branch pr-303, check commit log
+ 	- `git log`
 
-1. If this is from an issue, ensure 'Fixes #<Issue>' is present.  Add 'Closes #<PR>'. Amend the commit.
- 	- [ ] `git commit --amend`
+- If this is from an issue, ensure 'Fixes #<Issue>' is present.  Add 'Closes #<PR>'. Amend the commit.
+ 	- `git commit --amend`
 
-1. Switch back to master
- 	- [ ] `git checkout master`
+- Switch back to master
+ 	- `git checkout master`
 
-1. Check log, if there are commits that weren't in pr-303 besides the PR commit, then need to rebase
+- Check log, if there are commits that weren't in pr-303 besides the PR commit, then need to rebase
 master to pr branch
- 	- [ ] `git log`
+ 	- `git log`
 
-1. Additional commits present, go back to pr branch
-    - [ ] `git checkout pr-303`
+- Additional commits present, go back to pr branch
+    - `git checkout pr-303`
 
-1. Rebase master to the pr branch
-    - [ ] `git rebase master`
+- Rebase master to the pr branch
+    - `git rebase master`
 
-1. Check log to see that only pr commit is different
- 	- [ ] `git log`
+- Check log to see that only pr commit is different
+ 	- `git log`
 
-1. Go back to master branch
- 	- [ ] `git checkout master`
+- Go back to master branch
+ 	- `git checkout master`
 
-1. Merge pr branch to master
- 	- [ ] `git merge pr-303`
+- Merge pr branch to master
+ 	- `git merge pr-303`
 
-1. Ensure log shows that local master and pr branch are top, only repos are back one commit
- 	- [ ] `git log`
+- Ensure log shows that local master and pr branch are top, only repos are back one commit
+ 	- `git log`
 
-1. Push changes to origin master branch
- 	- [ ] `git push origin master`
+- Push changes to origin master branch
+ 	- `git push origin master`
