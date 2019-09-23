@@ -56,6 +56,8 @@ If you also had a dev branch that you wanted to update with master...
 - `git checkout dev-branch`  # Switch to the dev branch
 - `git rebase master`  # no need to use `upstream` since master is already up to date
 
+Note: `git fetch --all` gets all remotes you have configured and their branches.
+
 ## Making changes
 To make changes that are then (eventually) applied to the master source base, do the
 following:
